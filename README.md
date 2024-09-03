@@ -11,7 +11,7 @@ A Node.js client library for interacting with the Render API.
 ## Installation
 
 ```bash
-npm install render-node-client
+$ npm install render-node-client
 ```
 
 ## Usage
@@ -32,9 +32,11 @@ List all services:
 ```javascript
 const services = await client.services.list();
 console.log(services);
+```
 
 Get details of a specific service:
 
+```javascript
 const serviceId = 'srv-123456';
 const serviceDetails = await client.services.get(serviceId);
 console.log(serviceDetails);
@@ -48,7 +50,9 @@ List deploys for a service:
 const serviceId = 'srv-123456';
 const deploys = await client.deploys.list(serviceId);
 console.log(deploys);
+```
 
+```javascript
 Create a new deploy:
 
 const serviceId = 'srv-123456';
