@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from 'axios';
 import deploys from './api/deploys';
 import services from './api/services';
 
-class RenderClient {
+export class RenderClient {
   private apiKey: string;
   private baseURL: string;
   private client: AxiosInstance;
