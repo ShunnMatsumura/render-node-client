@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import RenderClient from 'render-node-client';
+import { RenderClient } from 'render-node-client';
 
 dotenv.config();
 

@@ -2,10 +2,13 @@
   "name": "render-node-client",
   "version": "1.0.2",
   "description": "",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test:manual": "ts-node test/manual-test.ts"
+    "test:manual": "ts-node test/manual-test.ts",
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +19,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.5.2",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
   }
 }
