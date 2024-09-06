@@ -1,6 +1,7 @@
 import { AxiosInstance } from 'axios';
 
-type ServiceType = 'static_site' | 'web_service' | 'private_service' | 'background_worker' | 'cron_job';
+export type ServiceType = 'static_site' | 'web_service' | 'private_service' | 'background_worker' | 'cron_job';
+export type ServicePlan = 'starter' | 'standard' | 'pro' | 'pro_plus' | 'pro_max' | 'pro_ultra';
 
 interface OpenPort {
   port: number;
@@ -37,7 +38,7 @@ interface Service {
   dockerContext?: string;
   dockerfilePath?: string;
   env?: string;
-  plan?: string;
+  plan?: ServicePlan;
   region?: string;
   healthCheckPath?: string;
   publishPath?: string;
@@ -71,6 +72,27 @@ interface CreateServiceOptions {
   schedule?: string;
 }
 
+interface UpdateServiceOptions extends Partial<CreateServiceOptions> {
+  autoDeploy?: boolean;
+  repo?: string;
+  branch?: string;
+  buildCommand?: string;
+  image?: {
+    ownerId: string;
+    registryCredentialId?: string;
+    imagePath: string;
+  };
+  name?: string;
+  buildFilter?: {
+    paths: string[];
+    ignorePaths: string[];
+  };
+  rootDir?: string;
+  serviceDetails?: {
+    plan: ServicePlan;
+  };
+}
+
 export default function services(client: AxiosInstance) {
   return {
     list: async (): Promise<Service[]> => {
@@ -88,7 +110,7 @@ export default function services(client: AxiosInstance) {
       return response.data;
     },
 
-    update: async (id: string, options: Partial<CreateServiceOptions>): Promise<Service> => {
+    update: async (id: string, options: UpdateServiceOptions): Promise<Service> => {
       const response = await client.patch(`/services/${id}`, options);
       return response.data;
     },

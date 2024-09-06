@@ -14,14 +14,18 @@ const client = new RenderClient(apiKey);
 
 async function runTests() {
   try {
-    const services = await client.services.list();
+    console.log("Updating service plan to pro_ultra");
+    const serviceId = "your-service-id-here";
+    await client.services.update(serviceId, {
+      serviceDetails: {
+        plan: "pro_ultra",
+      },
+    });
 
-    if (services.length > 0) {
-      const serviceId = services[0].id;
-      console.log(`\nFetching details for service ${serviceId}...`);
-      const serviceDetails = await client.services.get("srv-cr7jl33tq21c73d8te80");
-      console.log('Service details:', serviceDetails);
-    }
+    console.log("Service plan updated to pro_ultra");
+
+    const service = await client.services.get(serviceId);
+    console.log(service);
   } catch (error) {
     console.error('An error occurred:', error);
   }
