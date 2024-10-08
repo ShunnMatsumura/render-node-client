@@ -24,32 +24,59 @@ interface Service {
   type: ServiceType;
   repo: string;
   name: string;
-  autoDeploy: boolean;
+  autoDeploy: 'yes' | 'no';
   branch: string;
   createdAt: string;
   notifyOnFail: string;
   ownerId: string;
   slug: string;
-  suspended: string;
+  suspended: 'suspended' | 'not_suspended';
   suspenders: string[];
   updatedAt: string;
-  buildCommand?: string;
-  dockerCommand?: string;
-  dockerContext?: string;
-  dockerfilePath?: string;
-  env?: string;
-  plan?: ServicePlan;
-  region?: string;
-  healthCheckPath?: string;
-  publishPath?: string;
-  numInstances?: number;
-  pullRequestPreviewsEnabled?: boolean;
-  openPorts?: OpenPort[];
-  parentServer?: ParentServer;
-  url?: string;
-  disk?: Disk;
-  schedule?: string;
-  lastSuccessfulRunAt?: string;
+  dashboardUrl: string;
+  environmentId: string;
+  rootDir: string;
+  serviceDetails: {
+    autoscaling: {
+      criteria: {
+        cpu: {
+          enabled: boolean;
+          percentage: number;
+        };
+        memory: {
+          enabled: boolean;
+          percentage: number;
+        };
+      };
+      enabled: boolean;
+      max: number;
+      min: number;
+    };
+    buildPlan: string;
+    env: string;
+    envSpecificDetails: {
+      dockerCommand: string;
+      dockerContext: string;
+      dockerfilePath: string;
+      preDeployCommand: string;
+    };
+    healthCheckPath: string;
+    maintenanceMode: {
+      enabled: boolean;
+      uri: string;
+    };
+    numInstances: number;
+    openPorts: OpenPort[];
+    plan: ServicePlan;
+    previews: {
+      generation: string;
+    };
+    pullRequestPreviewsEnabled: 'yes' | 'no';
+    region: string;
+    runtime: string;
+    sshAddress: string;
+    url: string;
+  };
 }
 
 interface CreateServiceOptions {
